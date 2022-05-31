@@ -27,8 +27,9 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findById(id: string) {
-    return {} as UserModel;
+  async findById(id: string) {
+    const user = await this.usersRepository.findOne({ userId: id });
+    return user;
   }
 
   async findByEmail(email: string) {

@@ -1,12 +1,6 @@
 import { ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-export class User {
-  userId?: string;
-  email: string;
-  password: string;
-  name: string;
-}
 // Password
 import { AuthGuard } from '@nestjs/passport';
 
@@ -49,6 +43,8 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       return canActivate;
     }
 
+    // return true;
+
     return of(canActivate).pipe(
       mergeMap((value) => value),
       takeWhile((value) => value),
@@ -62,6 +58,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
             return req.user;
           }),
+
           mergeMap(
             (userFromJwt: UserFromJwt) =>
               this.userService.findById(
